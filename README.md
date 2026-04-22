@@ -1,5 +1,5 @@
 <h1 align="center">
- <a href="https://seungyn.com" target="_blank"> SeungYn Portfolio </a>
+ <a href="https://seungyn.com" target="_blank"> ParkJaeSeo Portfolio </a>
 </h1>
 <p align="center">
 	 <a href="https://github.com/bchiang7" target="_blank">brittanychiang</a>의 포트폴리오 디자인을 따라 만들었으며, 디자인을 따라 만들어도 된다고 명시되어 있어 참고하였습니다. <br>
