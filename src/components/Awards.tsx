@@ -1,0 +1,2 @@
+import { Trophy } from 'lucide-react'
+export function Awards() { return <section id="awards" className="awards" aria-labelledby="awards-title"><div className="awards-heading"><span>AWARDS</span><h2 id="awards-title">수상 내역</h2></div><div className="award-card"><Trophy size={28} aria-hidden="true" /><div><h3>SSAFY 14기 공통 프로젝트 <strong>최우수상</strong></h3><p><b>2026.02</b><span>|</span>ITDA - 노드 기반 AI 영상 제작 플랫폼</p></div></div></section> }
