@@ -14,8 +14,8 @@ nav { display: flex; gap: 24px; color: #526173; font-size: .84rem; font-weight: 
 nav a:hover { color: #14532d; }
 
 .hero { position: relative; display: flex; min-height: 100vh; align-items: center; padding: 96px 20px 110px; overflow: hidden; }
-.hero-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(360px, .92fr); gap: clamp(48px, 7vw, 104px); width: min(100%, 1120px); margin: 0 auto; align-items: center; }
-.hero-copy { text-align: left; }
+.hero-layout { position: relative; display: grid; grid-template-columns: minmax(0, 1fr); width: min(100%, 1120px); min-height: 360px; margin: 0 auto; align-items: center; }
+.hero-copy { position: relative; z-index: 1; text-align: left; }
 .hero-greeting { display: flex; flex-wrap: wrap; align-items: center; margin-bottom: 20px; color: #6b7280; font-size: 1.5rem; font-weight: 600; }
 .hero-greeting > span { white-space: nowrap; }
 .hero-word-wrap { display: inline-flex; align-items: center; }
@@ -24,7 +24,7 @@ nav a:hover { color: #14532d; }
 .hero h1 { margin: 0 0 10px; color: #111827; font-size: clamp(3.5rem, 8vw, 6rem); font-weight: 900; letter-spacing: -.04em; line-height: 1.1; }
 .hero-name strong { color: #9ca3af; font-size: 1.5rem; font-weight: 600; letter-spacing: .25em; }
 .hero-description { margin: 0; color: #4b5563; font-size: 1.15rem; font-weight: 500; line-height: 1.8; }
-.hero-visual { position: relative; min-height: 360px; }.hero-visual-glow { position: absolute; top: 50%; left: 50%; width: 290px; height: 290px; border-radius: 50%; background: #34d39955; filter: blur(58px); transform: translate(-50%, -50%); }.hero-brackets { position: absolute; z-index: 1; top: 50%; left: 50%; width: min(92%, 430px); filter: drop-shadow(0 24px 24px #00693e35); transform: translate(-50%, -50%); animation: bracket-float 6s ease-in-out infinite; pointer-events: none; }
+.hero-visual { position: absolute; z-index: 0; inset: 0; overflow: hidden; pointer-events: none; }.hero-visual-glow { position: absolute; top: 49%; left: 47%; width: 290px; height: 290px; border-radius: 50%; background: #34d39955; filter: blur(58px); transform: translate(-50%, -50%); }.hero-brackets { position: absolute; top: 49%; left: 47%; width: min(48vw, 430px); filter: drop-shadow(0 24px 24px #00693e35); transform: translate(-50%, -50%); animation: bracket-float 6s ease-in-out infinite; pointer-events: none; }
 .scroll-indicator { position: absolute; bottom: 38px; left: 50%; display: flex; flex-direction: column; align-items: center; padding: 0; color: #8892b0; background: transparent; cursor: pointer; font-size: .85rem; font-weight: 600; transform: translateX(-50%); }
 .scroll-indicator span:last-child { margin-top: 5px; font-size: 1.2rem; }
 @keyframes bracket-float { 50% { transform: translate(-50%, calc(-50% - 14px)) rotate(2deg); } }
