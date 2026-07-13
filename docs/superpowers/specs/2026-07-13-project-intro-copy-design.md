@@ -1,41 +1,41 @@
-# Project Intro Copy Design
+# 프로젝트 Intro 문구 설계
 
-## Goal
+## 목표
 
-Rewrite the three project detail `INTRO.` paragraphs so they communicate user experience and service value, without describing the author's individual contribution.
+프로젝트 상세 페이지의 세 `INTRO.` 문단을 사용자 경험과 서비스 가치가 드러나도록 수정합니다. 개인 기여 내용은 Intro에서 제외합니다.
 
-## Scope
+## 범위
 
-- Change only the `intro` values for Anvi, 알맹이, and ITDA in `src/data/portfolio.ts`.
-- Preserve the existing detail-page layout, project ordering, feature lists, technical explanations, and contribution badges.
+- `src/data/portfolio.ts`의 Anvi, 알맹이, ITDA `intro` 값만 수정합니다.
+- 기존 상세 페이지 레이아웃, 프로젝트 순서, 주요 기능, 기술 설명, 기여 배지는 유지합니다.
 
-## Copy Principles
+## 작성 원칙
 
-Each introduction uses a three-part user-journey narrative:
+각 Intro는 다음의 사용자 여정 3단계로 구성합니다.
 
-1. Identify the target user's friction or need.
-2. Describe how the service supports the user through its core flow.
-3. State the resulting user value in plain, portfolio-appropriate Korean.
+1. 대상 사용자가 겪는 불편 또는 필요를 제시합니다.
+2. 서비스가 핵심 흐름에서 사용자를 어떻게 돕는지 설명합니다.
+3. 사용자가 얻는 가치를 포트폴리오에 어울리는 자연스러운 문장으로 설명합니다.
 
-Individual implementation work, technologies, and performance metrics remain in the existing contribution, feature, technical-selection, and troubleshooting sections.
+개인 구현 내용, 기술, 성능 수치는 기존의 기여, 주요 기능, 기술 선정, 개발 이슈 섹션에 남깁니다.
 
-## Project Messages
+## 프로젝트별 핵심 메시지
 
 ### Anvi
 
-Remote-exam participants need a low-friction way to prepare a reliable test environment, while proctors need timely visibility into exceptions. The copy should highlight guided preparation, smartphone-assisted monitoring, and confidence in a fair, manageable exam.
+비대면 시험 응시자는 신뢰할 수 있는 시험 환경을 부담 없이 준비해야 하며, 감독관은 예외 상황을 빠르게 파악할 수 있어야 합니다. 안내에 따른 사전 점검, 스마트폰 보조 카메라 기반의 감독, 공정하고 안정적인 시험 경험을 강조합니다.
 
 ### 알맹이
 
-Small-business owners and employees face fragmented attendance, scheduling, contract, payroll, and communication tasks. The copy should emphasize a mobile-first connected operating flow and reduced administrative burden for both roles. It must not foreground the auction/chat feature, because it lacks context in the service's central HR story.
+소규모 사업장의 점주와 직원은 근태, 일정, 계약, 급여, 소통 업무가 여러 곳에 흩어져 있는 불편을 겪습니다. 모바일 중심의 연결된 운영 흐름과 두 역할 모두의 행정 부담 감소를 강조합니다. 서비스 핵심인 인사·운영 경험의 맥락이 흐려지므로, 경매·채팅 기능은 Intro에서 전면에 내세우지 않습니다.
 
 ### ITDA
 
-Non-developers face a high entry barrier in AI video creation because creation stages and tools are fragmented. The copy should describe a connected scenario-to-video workflow and the ability to create and collaborate with a clear shared view of progress.
+AI 영상 제작은 제작 단계와 도구가 분산되어 있어 비개발자에게 진입 장벽이 높습니다. 시나리오 작성부터 영상 생성까지 이어지는 흐름과, 진행 상황을 함께 보며 협업할 수 있는 제작 경험을 설명합니다.
 
-## Acceptance Criteria
+## 완료 기준
 
-- Every intro has three or four natural Korean sentences.
-- Every intro leads with user context rather than technology or author contribution.
-- No intro uses first-person phrasing such as `저는` or `담당했습니다`.
-- The data remains compatible with the existing single `<p>{project.intro}</p>` rendering in `ProjectDetail.tsx`.
+- 모든 Intro는 자연스러운 한국어 3~4문장으로 작성합니다.
+- 모든 Intro는 기술이나 개인 기여보다 사용자 맥락으로 시작합니다.
+- `저는`, `담당했습니다`와 같은 1인칭 기여 표현을 사용하지 않습니다.
+- `ProjectDetail.tsx`의 기존 단일 `<p>{project.intro}</p>` 렌더링 구조와 호환되어야 합니다.
