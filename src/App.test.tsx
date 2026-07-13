@@ -21,7 +21,7 @@ describe('portfolio interactions', () => {
     render(<App />)
 
     expect(screen.queryByLabelText('개발자 소개 터미널')).not.toBeInTheDocument()
-    expect(screen.getByAltText('메탈릭 그린 3D 브래킷')).toHaveAttribute('src', '/assets/hero-brackets.png')
+    expect(screen.queryByAltText('메탈릭 그린 3D 브래킷')).not.toBeInTheDocument()
     expect(screen.getByTestId('hero-visual')).toHaveAttribute('data-layout', 'centered-overlap')
     expect(screen.getByTestId('hero-code-window')).toBeVisible()
   })
