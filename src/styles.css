@@ -25,7 +25,7 @@ nav a:hover { color: #14532d; }
 .hero-name strong { color: #9ca3af; font-size: 1.5rem; font-weight: 600; letter-spacing: .25em; }
 .hero-description { margin: 0; color: #4b5563; font-size: 1.15rem; font-weight: 500; line-height: 1.8; }
 .hero-visual { position: absolute; z-index: 0; inset: 0; pointer-events: none; }
-.scroll-indicator { position: absolute; bottom: 38px; left: 50%; display: flex; flex-direction: column; align-items: center; padding: 0; color: #8892b0; background: transparent; cursor: pointer; font-size: .85rem; font-weight: 600; transform: translateX(-50%); }
+.scroll-indicator { position: absolute; bottom: 38px; left: 50%; display: flex; width: 120px; flex-direction: column; align-items: center; margin-left: -60px; padding: 0; color: #8892b0; background: transparent; cursor: pointer; font-size: .85rem; font-weight: 600; }
 .scroll-indicator span:last-child { margin-top: 5px; font-size: 1.2rem; }
 @keyframes bracket-float { 50% { transform: translate(-50%, calc(-50% - 14px)) rotate(2deg); } }
 
