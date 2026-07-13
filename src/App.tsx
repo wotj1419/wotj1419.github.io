@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useLayoutEffect, useMemo, useState } from 'react'
 import { Awards } from './components/Awards'
 import { Contact } from './components/Contact'
 import { Experience } from './components/Experience'
@@ -15,7 +15,7 @@ export default function App() {
   const [savedScrollPosition, setSavedScrollPosition] = useState(0)
   const selectedProject = useMemo(() => projects.find((project) => project.id === selectedProjectId), [selectedProjectId])
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     window.scrollTo({ top: selectedProject ? 0 : savedScrollPosition })
   }, [savedScrollPosition, selectedProject])
 
