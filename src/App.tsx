@@ -16,7 +16,7 @@ export default function App() {
   const selectedProject = useMemo(() => projects.find((project) => project.id === selectedProjectId), [selectedProjectId])
 
   useLayoutEffect(() => {
-    window.scrollTo({ top: selectedProject ? 0 : savedScrollPosition })
+    window.scrollTo({ top: selectedProject ? 0 : savedScrollPosition, behavior: 'instant' })
   }, [savedScrollPosition, selectedProject])
 
   const selectProject = (projectId: string) => {

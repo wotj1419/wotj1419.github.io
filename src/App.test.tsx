@@ -40,11 +40,11 @@ describe('portfolio interactions', () => {
     fireEvent.click(screen.getAllByRole('button', { name: '프로젝트 자세히 보기 →' })[0])
     expect(screen.getByRole('dialog', { name: /Anvi 프로젝트 상세/i })).toBeVisible()
     expect(screen.getByText('스크롤을 내리면 프로젝트 정보를 볼 수 있습니다.')).toBeVisible()
-    expect(window.scrollTo).toHaveBeenCalledWith({ top: 0 })
+    expect(window.scrollTo).toHaveBeenCalledWith({ top: 0, behavior: 'instant' })
 
     fireEvent.click(screen.getByRole('button', { name: '프로젝트 상세 닫기' }))
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
-    expect(window.scrollTo).toHaveBeenLastCalledWith({ top: 420 })
+    expect(window.scrollTo).toHaveBeenLastCalledWith({ top: 420, behavior: 'instant' })
   })
 
   it('renders the documented ANVI API and real-time reliability outcomes', () => {
