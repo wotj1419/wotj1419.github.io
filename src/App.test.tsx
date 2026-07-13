@@ -82,6 +82,27 @@ describe('portfolio interactions', () => {
     expect(screen.getByText('랜딩 페이지 성능 최적화')).toBeVisible()
   })
 
+  it('renders user-flow intros with representative service features', () => {
+    render(<App />)
+
+    fireEvent.click(screen.getAllByRole('button', { name: '프로젝트 자세히 보기 →' })[0])
+    expect(screen.getByText(/비대면 시험에서 응시자는/)).toBeVisible()
+    expect(screen.getByText(/QR 또는 PIN으로 시험에 입장/)).toBeVisible()
+    expect(screen.queryByText(/저는 응시자 앱/)).not.toBeInTheDocument()
+    fireEvent.click(screen.getByRole('button', { name: '프로젝트 상세 닫기' }))
+
+    fireEvent.click(screen.getAllByRole('button', { name: '프로젝트 자세히 보기 →' })[1])
+    expect(screen.getByText(/소규모 사업장을 운영하다 보면/)).toBeVisible()
+    expect(screen.getByText(/QR 출퇴근, 전자 근로계약·문서함/)).toBeVisible()
+    expect(screen.queryByText(/저는 로그인\/세션 처리/)).not.toBeInTheDocument()
+    fireEvent.click(screen.getByRole('button', { name: '프로젝트 상세 닫기' }))
+
+    fireEvent.click(screen.getAllByRole('button', { name: '프로젝트 자세히 보기 →' })[2])
+    expect(screen.getByText(/AI 영상 제작은/)).toBeVisible()
+    expect(screen.getByText(/시나리오를 작성한 뒤 노드 기반 씬 에디터/)).toBeVisible()
+    expect(screen.queryByText(/흐름을 설계했습니다/)).not.toBeInTheDocument()
+  })
+
   it('omits library icons without suitable visual assets', () => {
     render(<App />)
 
