@@ -17,10 +17,10 @@ describe('portfolio interactions', () => {
     expect(screen.getByRole('heading', { name: '박재서입니다.' })).toBeVisible()
   })
 
-  it('renders the hero terminal with its command and decorative bracket image', () => {
+  it('renders the hero bracket image without the terminal', () => {
     render(<App />)
 
-    expect(screen.getByLabelText('개발자 소개 터미널')).toHaveTextContent('>')
+    expect(screen.queryByLabelText('개발자 소개 터미널')).not.toBeInTheDocument()
     expect(screen.getByAltText('메탈릭 그린 3D 브래킷')).toHaveAttribute('src', '/assets/hero-brackets.png')
   })
 
