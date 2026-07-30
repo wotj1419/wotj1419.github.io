@@ -1,4 +1,4 @@
-import { cleanup, fireEvent, render, screen } from '@testing-library/react'
+import { cleanup, fireEvent, render, screen, within } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import App from './App'
 
@@ -54,6 +54,51 @@ describe('portfolio interactions', () => {
     fireEvent.click(screen.getByRole('button', { name: '프로젝트 상세 닫기' }))
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
     expect(window.scrollTo).toHaveBeenLastCalledWith({ top: 420, behavior: 'instant' })
+  })
+
+  it('focuses the close button when a project dialog opens', () => {
+    render(<App />)
+
+    fireEvent.click(screen.getAllByRole('button', { name: '프로젝트 자세히 보기 →' })[0])
+
+    const dialog = screen.getByRole('dialog')
+    expect(document.activeElement).toBe(within(dialog).getByRole('button'))
+  })
+
+  it('closes the project dialog with Escape and returns focus to its trigger', () => {
+    render(<App />)
+
+    const trigger = screen.getAllByRole('button', { name: '프로젝트 자세히 보기 →' })[0]
+    fireEvent.click(trigger)
+    fireEvent.keyDown(screen.getByRole('dialog'), { key: 'Escape' })
+
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+    expect(document.activeElement).toBe(trigger)
+  })
+
+  it('keeps Tab and Shift+Tab focus inside the project dialog', () => {
+    render(<App />)
+
+    fireEvent.click(screen.getAllByRole('button', { name: '프로젝트 자세히 보기 →' })[0])
+
+    const dialog = screen.getByRole('dialog')
+    const closeButton = within(dialog).getByRole('button')
+    fireEvent.keyDown(closeButton, { key: 'Tab' })
+    expect(document.activeElement).toBe(closeButton)
+
+    fireEvent.keyDown(closeButton, { key: 'Tab', shiftKey: true })
+    expect(document.activeElement).toBe(closeButton)
+  })
+
+  it('locks body scrolling while the project dialog is open and restores it when closed', () => {
+    render(<App />)
+
+    const trigger = screen.getAllByRole('button', { name: '프로젝트 자세히 보기 →' })[0]
+    fireEvent.click(trigger)
+    expect(document.body.style.overflow).toBe('hidden')
+
+    fireEvent.keyDown(screen.getByRole('dialog'), { key: 'Escape' })
+    expect(document.body.style.overflow).toBe('')
   })
 
   it('renders the documented ANVI API and real-time reliability outcomes', () => {
