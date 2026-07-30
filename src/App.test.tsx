@@ -64,7 +64,7 @@ describe('portfolio interactions', () => {
     expect(screen.getByText(/QR\/PIN 기반 시험 입장/)).toBeVisible()
     expect(screen.getByText(/38개 API wrapper/)).toBeVisible()
     expect(screen.getByText(/2.5초 후 재연결/)).toBeVisible()
-    expect(screen.getByAltText('Vite')).toHaveAttribute('src', expect.stringContaining('vitejs/vitejs-original.svg'))
+    expect(screen.getByAltText('Vite')).toHaveAttribute('src', '/assets/icons/vite.svg')
   })
 
   it('renders the documented Almaengi notification and API outcomes', () => {

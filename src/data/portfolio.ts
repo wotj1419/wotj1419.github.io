@@ -1,3 +1,5 @@
+import { localTechnologyIconPaths } from './assets'
+
 export type Technology = { name: string; category: 'Languages' | 'Frontend' | 'Backend / Tools'; icon: string }
 export type Project = {
   id: string; title: string; badge: string; period: string; subtitle: string; award?: string; description: string; heroImage: string; team: string
@@ -8,9 +10,8 @@ export type Project = {
 export const profile = { name: '박재서', englishName: 'PARK JAESEO', role: 'Frontend Developer', email: 'swotjoo@gmail.com', github: 'https://github.com/wotj1419', resume: '/assets/portfolio-jaeseo.pdf' }
 
 export const technologies: Technology[] = [
-  ['HTML5', 'Languages', 'html5/html5-original.svg'], ['CSS', 'Languages', 'css3/css3-original.svg'], ['JavaScript', 'Languages', 'javascript/javascript-original.svg'], ['TypeScript', 'Languages', 'typescript/typescript-original.svg'], ['Python', 'Languages', 'python/python-original.svg'], ['Kotlin', 'Languages', 'kotlin/kotlin-original.svg'], ['React', 'Frontend', 'react/react-original.svg'], ['Vue 3', 'Frontend', 'vuejs/vuejs-original.svg'], ['Android', 'Frontend', 'android/android-original.svg'], ['TailwindCSS', 'Frontend', 'tailwindcss/tailwindcss-original.svg'], ['Vite', 'Frontend', 'vitejs/vitejs-original.svg'], ['Django', 'Backend / Tools', 'django/django-plain.svg'], ['Git', 'Backend / Tools', 'git/git-original.svg'], ['GitHub', 'Backend / Tools', 'github/github-original.svg'], ['GitLab', 'Backend / Tools', 'gitlab/gitlab-original.svg'], ['Jira', 'Backend / Tools', 'jira/jira-original.svg'], ['Figma', 'Backend / Tools', 'figma/figma-original.svg'],
-].map(([name, category, icon]) => ({ name, category: category as Technology['category'], icon: `https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${icon}` }))
-technologies.push({ name: 'Notion', category: 'Backend / Tools', icon: 'https://upload.wikimedia.org/wikipedia/commons/4/45/Notion_app_logo.png' })
+  ['HTML5', 'Languages'], ['CSS', 'Languages'], ['JavaScript', 'Languages'], ['TypeScript', 'Languages'], ['Python', 'Languages'], ['Kotlin', 'Languages'], ['React', 'Frontend'], ['Vue 3', 'Frontend'], ['Android', 'Frontend'], ['TailwindCSS', 'Frontend'], ['Vite', 'Frontend'], ['Django', 'Backend / Tools'], ['Git', 'Backend / Tools'], ['GitHub', 'Backend / Tools'], ['GitLab', 'Backend / Tools'], ['Jira', 'Backend / Tools'], ['Figma', 'Backend / Tools'], ['Notion', 'Backend / Tools'],
+].map(([name, category]) => ({ name, category: category as Technology['category'], icon: localTechnologyIconPaths[name as keyof typeof localTechnologyIconPaths] }))
 export const techCategories = ['전체', 'Languages', 'Frontend', 'Backend / Tools'] as const
 export type TechCategory = (typeof techCategories)[number]
 
