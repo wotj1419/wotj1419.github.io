@@ -1,4 +1,4 @@
-import { cleanup, fireEvent, render, screen, within } from '@testing-library/react'
+import { cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import App from './App'
@@ -66,15 +66,18 @@ describe('portfolio interactions', () => {
     expect(document.activeElement).toBe(within(dialog).getByRole('button'))
   })
 
-  it('closes the project dialog with Escape and returns focus to its trigger', () => {
+  it('closes the project dialog with Escape and returns focus to its trigger', async () => {
     render(<App />)
 
-    const trigger = screen.getAllByRole('button', { name: '프로젝트 자세히 보기 →' })[0]
-    fireEvent.click(trigger)
+    fireEvent.click(screen.getAllByRole('button', { name: '프로젝트 자세히 보기 →' })[0])
     fireEvent.keyDown(screen.getByRole('dialog'), { key: 'Escape' })
 
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
-    expect(document.activeElement).toBe(trigger)
+    await waitFor(() => {
+      expect(document.activeElement).toBe(
+        screen.getAllByRole('button', { name: '프로젝트 자세히 보기 →' })[0],
+      )
+    })
   })
 
   it('keeps native Tab and Shift+Tab focus inside the project dialog', async () => {
@@ -88,12 +91,10 @@ describe('portfolio interactions', () => {
     const externalControl = screen.getByRole('link', { name: 'PJS' })
     await user.tab()
     expect(document.activeElement).toBe(closeButton)
-    expect(dialog).toContainElement(document.activeElement)
     expect(document.activeElement).not.toBe(externalControl)
 
     await user.tab({ shift: true })
     expect(document.activeElement).toBe(closeButton)
-    expect(dialog).toContainElement(document.activeElement)
     expect(document.activeElement).not.toBe(externalControl)
   })
 

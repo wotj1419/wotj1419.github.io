@@ -1,7 +1,58 @@
 import { ChevronDown, X } from 'lucide-react'
+import { useEffect, useRef } from 'react'
 import { projectTechIconPaths } from '../data/assets'
 import type { Project } from '../data/portfolio'
 type ProjectDetailProps = { project: Project; onClose: () => void }
 const techIcon = (technology: string) => projectTechIconPaths[technology as keyof typeof projectTechIconPaths]
 
-export function ProjectDetail({ project, onClose }: ProjectDetailProps) { return <div className="project-detail" role="dialog" aria-modal="true" aria-label={`${project.title} 프로젝트 상세`}><main className="detail-modal"><button className="close-button" onClick={onClose} aria-label="프로젝트 상세 닫기"><X size={28} /></button><div className="detail-visual"><div className="detail-backdrop" style={{ backgroundImage: `url(${project.heroImage})` }} /><img src={project.heroImage} alt={project.title} /><div className="detail-scroll-hint">스크롤을 내리면 프로젝트 정보를 볼 수 있습니다.<ChevronDown size={20} /></div></div><div className="detail-body"><header><h1>{project.title}</h1></header><div className="detail-intro"><strong>INTRO.</strong><p>{project.intro || project.description}</p></div><section><h3>⏱ 개발 기간</h3><p>| {project.period}</p></section><section><h3>👥 구성원</h3><p>| {project.team || '팀 프로젝트'}</p></section><section><h3>🎯 기여</h3><div className="detail-badges">{project.contribution.map((item) => <span key={item}>{item}</span>)}</div></section><section><h3>🛠 사용된 기술 스택</h3><div className="project-tech-icons">{project.tech.map((technology) => <img key={technology} src={techIcon(technology)} alt={technology} title={technology} />)}</div></section><section><h3>📌 주요 기능</h3><ul>{project.features.map((feature) => <li key={feature}>{feature}</li>)}</ul></section><section><h3>🔎 기술 선정</h3><ul>{project.techReasons.map((item) => <li key={item.name}><strong>{item.name}</strong>: {item.reason}</li>)}</ul></section><section><h3>🧩 개발 이슈</h3><ul>{project.troubleshootings.map((item) => <li key={item.problem}><div><b className="issue-label">이슈:</b> {item.problem}</div><div><b className="solution-label">해결:</b> {item.solution}</div></li>)}</ul></section><section><h3>💭 개발 후 느낀점</h3><p className="detail-retrospective">{project.retrospective}</p></section></div></main></div> }
+export function ProjectDetail({ project, onClose }: ProjectDetailProps) {
+  const dialogRef = useRef<HTMLDivElement>(null)
+  const closeButtonRef = useRef<HTMLButtonElement>(null)
+
+  useEffect(() => {
+    const previousBodyOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    closeButtonRef.current?.focus()
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        onClose()
+        return
+      }
+
+      if (event.key !== 'Tab') return
+
+      const dialog = dialogRef.current
+      if (!dialog) return
+
+      const focusableElements = Array.from(dialog.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+      ))
+      const firstFocusableElement = focusableElements[0]
+      const lastFocusableElement = focusableElements[focusableElements.length - 1]
+
+      if (!firstFocusableElement || !lastFocusableElement) {
+        event.preventDefault()
+        return
+      }
+
+      const activeElement = document.activeElement
+      if (event.shiftKey && (activeElement === firstFocusableElement || !dialog.contains(activeElement))) {
+        event.preventDefault()
+        lastFocusableElement.focus()
+      } else if (!event.shiftKey && (activeElement === lastFocusableElement || !dialog.contains(activeElement))) {
+        event.preventDefault()
+        firstFocusableElement.focus()
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown)
+      document.body.style.overflow = previousBodyOverflow
+    }
+  }, [onClose])
+
+  return <div ref={dialogRef} className="project-detail" role="dialog" aria-modal="true" aria-label={`${project.title} 프로젝트 상세`}><main className="detail-modal"><button ref={closeButtonRef} className="close-button" onClick={onClose} aria-label="프로젝트 상세 닫기"><X size={28} /></button><div className="detail-visual"><div className="detail-backdrop" style={{ backgroundImage: `url(${project.heroImage})` }} /><img src={project.heroImage} alt={project.title} /><div className="detail-scroll-hint">스크롤을 내리면 프로젝트 정보를 볼 수 있습니다.<ChevronDown size={20} /></div></div><div className="detail-body"><header><h1>{project.title}</h1></header><div className="detail-intro"><strong>INTRO.</strong><p>{project.intro || project.description}</p></div><section><h3>⏱ 개발 기간</h3><p>| {project.period}</p></section><section><h3>👥 구성원</h3><p>| {project.team || '팀 프로젝트'}</p></section><section><h3>🎯 기여</h3><div className="detail-badges">{project.contribution.map((item) => <span key={item}>{item}</span>)}</div></section><section><h3>🛠 사용된 기술 스택</h3><div className="project-tech-icons">{project.tech.map((technology) => <img key={technology} src={techIcon(technology)} alt={technology} title={technology} />)}</div></section><section><h3>📌 주요 기능</h3><ul>{project.features.map((feature) => <li key={feature}>{feature}</li>)}</ul></section><section><h3>🔎 기술 선정</h3><ul>{project.techReasons.map((item) => <li key={item.name}><strong>{item.name}</strong>: {item.reason}</li>)}</ul></section><section><h3>🧩 개발 이슈</h3><ul>{project.troubleshootings.map((item) => <li key={item.problem}><div><b className="issue-label">이슈:</b> {item.problem}</div><div><b className="solution-label">해결:</b> {item.solution}</div></li>)}</ul></section><section><h3>💭 개발 후 느낀점</h3><p className="detail-retrospective">{project.retrospective}</p></section></div></main></div>
+}
