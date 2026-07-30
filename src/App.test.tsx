@@ -1,4 +1,5 @@
 import { cleanup, fireEvent, render, screen, within } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import App from './App'
 
@@ -76,18 +77,24 @@ describe('portfolio interactions', () => {
     expect(document.activeElement).toBe(trigger)
   })
 
-  it('keeps Tab and Shift+Tab focus inside the project dialog', () => {
+  it('keeps native Tab and Shift+Tab focus inside the project dialog', async () => {
+    const user = userEvent.setup()
     render(<App />)
 
     fireEvent.click(screen.getAllByRole('button', { name: '프로젝트 자세히 보기 →' })[0])
 
     const dialog = screen.getByRole('dialog')
     const closeButton = within(dialog).getByRole('button')
-    fireEvent.keyDown(closeButton, { key: 'Tab' })
+    const externalControl = screen.getByRole('link', { name: 'PJS' })
+    await user.tab()
     expect(document.activeElement).toBe(closeButton)
+    expect(dialog).toContainElement(document.activeElement)
+    expect(document.activeElement).not.toBe(externalControl)
 
-    fireEvent.keyDown(closeButton, { key: 'Tab', shiftKey: true })
+    await user.tab({ shift: true })
     expect(document.activeElement).toBe(closeButton)
+    expect(dialog).toContainElement(document.activeElement)
+    expect(document.activeElement).not.toBe(externalControl)
   })
 
   it('locks body scrolling while the project dialog is open and restores it when closed', () => {
